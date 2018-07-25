@@ -59,7 +59,7 @@ define([
         show:function (e) {
             var _this = this;
             on.emit(this.domNode, 'show.bs.modal', {bubbles:false, cancelable:false});
-            if (this.isShown && e && e.defaultPrevented) { return; }
+            if (this.isShown && e.defaultPrevented) { return; }
             this.isShown = true;
 
             _escape.call(this);
@@ -91,7 +91,7 @@ define([
             var _this = this;
             on.emit(this.domNode, 'hide.bs.modal', {bubbles:false, cancelable:false});
             if (e) { e.preventDefault(); }
-            if (!this.isShown &&  e.defaultPrevented) {
+            if (!this.isShown && e.defaultPrevented) {
                 return;
             }
 

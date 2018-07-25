@@ -110,9 +110,9 @@ define([
     var _headTemplate = (function(){
         return '<thead>'+
             '<tr>'+
-            '<th class="prev"><i class="icon-arrow-left"/></th>'+
+            '<th class="prev"><i class="glyphicon glyphicon-chevron-left"/></th>'+
             '<th colspan="5" class="switch"></th>'+
-            '<th class="next"><i class="icon-arrow-right"/></th>'+
+            '<th class="next"><i class="glyphicon glyphicon-chevron-right"/></th>'+
             '</tr>'+
             '</thead>';
     })();
@@ -224,11 +224,15 @@ define([
             });
         },
         update: function () {
-            var date = this.domNode.value;
-            this.date = _parseDate(
-                date ? date : support.getData(this.domNode, 'date'),
+            var domDate = this.domNode.value;
+            var newDate = _parseDate(
+                domDate ? domDate : support.getData(this.domNode, 'date'),
                 this.format
             );
+            if (this.date && newDate.getTime() !== this.date.getTime()) {
+                on.emit(this.domNode, 'changeDate', {bubbles:false, cancelable:false, date:this.date});
+            }
+            this.date = newDate;
             this.viewDate = new Date(this.date);
             this.fill();
         },
